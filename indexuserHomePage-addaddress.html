@@ -1,0 +1,159 @@
+<?php
+if(!defined('InEmpireCMS'))
+{
+	exit();
+}
+?>
+<?php
+$postword=$enews=='EditAddress'?'修改地址':'增加地址';
+$public_diyr['pagetitle']=$postword;
+$url="<a href=../../../>首页</a>&nbsp;>&nbsp;<a href=../../member/cp/>会员中心</a>&nbsp;>&nbsp;<a href='ListAddress.php'>配送地址列表</a>&nbsp;>&nbsp;".$postword;
+require(ECMS_PATH.'e/template/incfile/header.php');
+?>
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>抱筹网-会员中心</title>
+  <meta name="description" content="抱筹网会员中心">
+  <meta name="keywords" content="抱筹网会员中心">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="/img/icon.jpg">
+  <link rel="stylesheet" href="/mobile/mcss/amazeui.min.css">
+  <link rel="stylesheet" href="/mobile/mcss/user.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>u-addAddress thisPage}}
+
+  {{>myFooter footer}}
+</script>
+
+<script src="/mobile/mjs/jquery.min.js"></script>
+<script src="/mobile/mjs/amazeui.js"></script>
+<script src="/mobile/mjs/handlebars.min.js"></script>
+<script src="/mobile/mjs/include/tpl.js"></script>
+<script src="/mobile/mjs/amazeui.widgets.helper.js"></script>
+<script src="/mobile/mjs/app.js"></script>
+<script>
+//手机号验证
+$.AMUI.validator.patterns.myphone = /^1((3|5|8){1}\d{1}|70)\d{8}$/;
+
+var data={};
+data.thisPage = {
+  "typeEdit":"<?=$enews?>",
+  "adr-id":"<?=$addressid?>",
+  "address":"<?=$r[address]?>",
+  "name":"<?=$r[truename]?>",
+  "phone":"<?=$r[phone]?>"
+};
+data.footer ={
+      "options": {
+        "modal": true,
+        "techSupportCo": "抱筹网",
+        "techSupportSite": "http://www.baochouwang.com/"
+      },
+      "content": {
+        "owner": "抱筹网",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2015 深圳前海鼎汇众筹金融服务有限公司"
+          },
+          {
+            "detail": "粤ICP备15087263号-1"
+          }
+        ]
+      }
+    };
+
+var objHead = {};
+objHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "",
+        "icon": "chevron-circle-left"
+      }
+    ],
+    "title": "抱筹网",
+    "right": [
+      {
+        "link": "/","icon": "home"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+
+app.temInit("amz-head",objHead);
+app.temInit("amz-tpl",data);
+//地址选择
+$.getScript("/mobile/mjs/include/addressChioce.js",function(){
+  //地址选择
+  var s=["province","city","none"];//三个select的name
+  $.fn.addressChioce(s);
+  //地址选择end
+  //初始化地址
+  initAdr();
+})
+//回退按钮
+$(".am-header-left.am-header-nav").on("click",function(){history.go(-1)});
+//设置地址
+
+//初始化地址函数
+function initAdr(){
+  var data = $("#addressForm").attr("data-address");
+  if(data!==""){
+    var arr = data.match(/([^-]*)-([^-]*)-([\s\S]*)/);
+    $("#province").val(arr[1]).trigger("change");
+    $("#city").val(arr[2]).trigger("change");
+    $("#address").val(arr[3]).trigger("change");
+    $("#truename,#phone").trigger("change");
+  }
+}
+//提交地址
+  $("#gotoSubmit").on("click",function(){
+    if($("#addressForm").validator('isFormValid')){
+      address($("#addressForm").attr("data-typeEdit"),$("#addressForm").attr("data-adr-id"));
+    }else{}
+    return false;
+  })
+function address(typeEdit,id){
+  var typeAddress="EditAddress";
+  if(typeEdit === "AddAddress"){
+    typeAddress="AddAddress";
+  };
+  $.ajax({
+    url:"/e/ShopSys/doaction.php",
+    type:"POST",
+    data:{
+      addressname:$("#truename").val()+"-"+$("#phone").val()+"-"+$("#province").val()+"-"+$("#city").val()+"-"+$("#address").val(),
+      truename:$("#truename").val(),
+      phone:$("#phone").val(),
+      address:$("#province").val()+"-"+$("#city").val()+"-"+$("#address").val(),
+      enews:typeAddress,
+      addressid:id
+    },
+    success:function(data){history.go(-1)},
+    error:function(){
+      alert("修改地址失败");
+    }
+  })
+}
+</script>
+</body>
+</html>

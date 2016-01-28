@@ -1,0 +1,201 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>[!--pagetitle--]</title>
+<meta name="keywords" content="[!--pagekey--]"/>
+<meta name="description" content="[!--pagedes--]"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=2, user-scalable=yes">
+<link rel="shortcut icon" type="image/png" href="[!--news.url--]img/icon.jpg">
+<link rel="stylesheet" href="/mobile/mcss/amazeui.min.css">
+<link rel="stylesheet" href="/mobile/mcss/contentM.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>content contentData}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-foot">
+  {{>navbar navbar}}
+</script>
+
+
+<script src="/mobile/mjs/jquery.min.js"></script>
+<script src="/mobile/mjs/amazeui.js"></script>
+<script src="/mobile/mjs/handlebars.min.js"></script>
+<script src="/mobile/mjs/include/tpl.js"></script>
+<script src="/mobile/mjs/amazeui.widgets.helper.js"></script>
+<script src="/mobile/mjs/app.js"></script>
+<script>
+
+var data={};
+data.contentData = {
+  imgSrc:'[!--titlepic--]',
+  imgAlt:'[!--title--]',
+  title:'[!--title--]',
+  dsc:'[!--shareSmalltext--]',
+//项目简介部分获取
+[e:loop={"SELECT classid,id,titlepic,title,price,mainid,titleurl,(czdaynumber-((UNIX_TIMESTAMP(NOW()) - newstime)/86400)) as nowtime,czdaynumber,czAmount,videourl FROM phome_ecms_shop where classid=$navinfor[classid] and id=$navinfor[id] order by price desc ",1,24,0}]
+
+      <?
+        $wsamount=0;  //无私支持金额统计
+        $wscounts=0;  //无私支持人数统计
+        $nowtime=0;
+        $videourl = "";
+        $videourl = $bqr[videourl];
+        $nowtime = $bqr[nowtime];
+        $czdaynumber=number_format($bqr[czdaynumber]);
+        if($bqr[nowtime]<= 1 and $bqr[nowtime]>0)
+        {
+            
+          $datadiff = "剩余".number_format($bqr[nowtime]*24).' 时';
+        }
+        elseif($bqr[nowtime]<=0)
+        {
+            $datadiff = "已过期";
+        }
+        else
+        { 
+          $datadiff = number_format($bqr[nowtime]);
+          if($datadiff > $czdaynumber )
+          {
+            $datadiff =$czdaynumber;
+          }
+          $datadiff = "剩余".$datadiff."天";
+        }
+        //计算无私捐助余额与人数
+        $sql=$empire->query("SELECT sum(pstotal) as pstotal,COUNT(1) AS wscounts  FROM  phome_enewsshopdd t1 LEFT JOIN phome_enewsshopdd_add t2 ON t1.ddid = t2.ddid WHERE buycar LIKE '%|$bqr[classid],$bqr[id]|%' and haveprice = 1 ");
+
+        while($wszc=$empire->fetch($sql))
+        {
+          $wsamount =$wszc[pstotal];
+          $wscounts =$wszc[wscounts];
+        }
+        $sql=$empire->query("SELECT SUM(price*psalenum) as sumamount, sum(psalenum) as counts FROM `phome_ecms_shop` WHERE mainid= '$bqr[id]' ");
+        while($info=$empire->fetch($sql))
+        {
+          $beichushu = $info[sumamount]*100+$wsamount;
+          $chushu = $bqr[czAmount];$baifen=0;
+          if($beichushu<=0){$baifen=0;}elseif($chushu<=0){$baifen=0;}else{$baifen =number_format($beichushu/$chushu,2); }
+        
+      ?>
+    hadMoney:'<?=number_format($wsamount+$info[sumamount]);?>',
+    hadMoneyClass:'',
+    target:'<?=number_format($bqr[czAmount]);?>',
+    progress:'<?=$baifen?>',
+    progressClass:'',
+    support:'<?=$wscounts+$info[counts]?>',
+    leftDay:'<?=$datadiff?>',
+    dscHref:'#detailShow',
+<?
+}
+?>
+[/e:loop]
+//回报项目循环
+  item:[
+[e:loop={"SELECT fhbtime,title,classid,id,price,intro,czdaynumber,psalenum,psalenum+pmaxnum as counts,fsharepic1,fsharepic2,fsharepic3,pmaxnum as xiaoliang,(czdaynumber-((UNIX_TIMESTAMP(NOW()) - newstime)/86400)) as nowtime FROM phome_ecms_shop WHERE mainid = $navinfor[id] order by price asc",1,24,0}]
+    {
+      // href:'[!--news.url--]mobile/e/ShopSys/doaction.php?enews=AddBuycar&classid=<?=$bqr[classid]?>&id=<?=$bqr[id]?>',
+      href:'javascript:;',
+      price:'￥<?=$bqr[price]?>',
+      supportMan:'<?=$bqr[psalenum]?>人支持',
+      maxMan:'限<?=$bqr[counts]?>人<? if($bqr["xiaoliang"]<=0){echo "/已满额";}?>',
+      repayDsc:[
+        {dsc:'<?= html_entity_decode($bqr[intro])?>'}
+      ],
+      img:[
+        {imgSrc:'<?=$bqr["fsharepic1"]?>'},
+        {imgSrc:'<?=$bqr["fsharepic2"]?>'},
+        {imgSrc:'<?=$bqr["fsharepic3"]?>'}
+      ]
+    },
+[/e:loop]
+  {
+      // href:'[!--news.url--]mobile/e/ShopSys/doaction.php?enews=AddBuycar&amp;classid=[!--classid--]&amp;id=[!--id--]',
+      href:'javascript:;',
+      price:'无私支持',
+      supportMan:'<?=$wscounts?>',
+      maxMan:'999',
+      repayDsc:[{dsc:'<?=$bqr[intro]?>'}]
+    }
+  ],
+  video:'<? if($videourl !=""){?><iframe class="am-u-sm-12" src="<?=$videourl?>" frameborder=0 allowfullscreen></iframe><?}?>',
+  detailData:'[!--newstext--]'
+};
+
+var objHead = {};
+objHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "/mobile/",
+        "icon": "home",
+        "customIcon": 'data:image/svg+xml;charset=utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 12 20\"><path d=\"M10,0l2,2l-8,8l8,8l-2,2L0,10L10,0z\" fill=\"%23fff\"/></svg>'
+      }
+    ],
+    "title": "抱筹网",
+    "right": [
+      {
+        "link": "javascript:;","icon": "share","className":"toShare"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+var objFoot= {
+  navbar: {
+    "options": {
+      "cols": "4",
+      "iconpos": "top"
+    },
+    "content": [
+      {
+        "title": "一键分享",
+        "link": "",
+        "icon": "share-square-o",
+        "dataApi": "data-am-navbar-share"
+      },
+      {
+        "title": "二维码",
+        "link": "",
+        "icon": "QRCode",
+        "dataApi": "data-am-navbar-qrcode"
+      },
+      {
+        "title": "关于我们",
+        "link": "http\:\/\/www.baochouwang.com/mobile/",
+        "icon": "user-md",
+        "dataApi": ""
+      }
+    ]
+  }
+};
+app.temInit("amz-head",objHead);
+app.temInit("amz-foot",objFoot);
+app.temInit("amz-tpl",data);
+
+</script>
+<script>
+$(".toShare").on("click",function(){$(".am-navbar-nav li").eq(0).trigger("click")});
+$('#detailShow').scrollspy();
+$("#detailShow").on("inview.scrollspy.amui",function(){
+  $(".am-navbar-nav").fadeOut();
+}).on("outview.scrollspy.amui",function(){
+  $(".am-navbar-nav").fadeIn();
+});
+</script>
+</body>
+</html>

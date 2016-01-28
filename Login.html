@@ -1,0 +1,42 @@
+'{{#this}}\
+  <div data-am-widget="tabs"\
+       class="am-tabs{{#if theme}} am-tabs-{{theme}}{{else}} am-tabs-default{{/if}}{{#if widgetId}} {{widgetId}}{{/if}}{{#if className}} {{className}}{{/if}}"\
+       {{#if id}}id="{{id}}"{{/if}} {{#if options.noSwipe}}data-am-tabs-noswipe="1"{{/if}}>\
+    {{#if content}}\
+      <ul class="am-tabs-nav am-cf">\
+        {{#each content}}\
+          <li class="{{#if active}}am-active{{/if}}"><a href="[data-tab-panel-{{@index}}]">{{{title}}}</a></li>\
+        {{/each}}\
+      </ul>\
+      <div class="am-tabs-bd">\
+        {{#each content}}\
+          <div data-tab-panel-{{@index}} class="am-tab-panel {{#if active}}am-active{{/if}}">\
+            {{#if form}}\
+            <form action="{{form.formAction}}" name="{{form.formName}}" id="{{form.formId}}" class="am-form am-form-horizontal">\
+              {{#each form.label}}\
+                <div class="am-form-group contain">\
+                  {{#if labelFor}}\
+                  <label for="{{labelFor}}" class="am-u-sm-3 am-form-label">{{labelText}}</label>\
+                  {{/if}}\
+                  <div class="{{#if inputWidth}}am-u-sm-{{inputWidth}}{{else}}am-u-sm-9{{/if}} {{#if divClass}}{{divClass}}{{/if}}">\
+                    {{#if inputExcit}}\
+                    <input type="{{inputType}}" name="{{inputName}}" id="{{inputId}}" class="{{inputClass}}" value="{{inputValue}}" placeholder="{{inputPlaceholder}}">\
+                    {{/if}}\
+                    {{#if img}}\
+                    <img src="{{img}}" alt="{{imgAlt}}">\
+                    {{/if}}\
+                    {{#if btn}}\
+                    <a href="{{btnHref}}" onclick="{{btnOnclick}}" class="{{btnClass}}" id="btnId">{{btn}}</a>\
+                    {{/if}}\
+                  </div>\
+                </div>\
+              {{/each}}\
+            </form>\
+            {{/if}}\
+          </div>\
+        {{/each}}\
+      </div>\
+    {{/if}}\
+  </div>\
+{{/this}}'
+

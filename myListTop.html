@@ -1,0 +1,89 @@
+<!-- listTop start -->
+{{#this}}
+  <div data-am-widget="list_news" class="am-list-news{{#if theme}} am-list-news-{{theme}}{{else}} am-list-news-default{{/if}}{{#if widgetId}} {{widgetId}}{{/if}}{{#if className}} {{className}}{{/if}}" {{#if id}}id="{{id}}"{{/if}}>
+  <!--列表标题-->
+  {{#if content.header.title}}
+    <div class="am-list-news-hd am-cf">
+      {{#if content.header.link}} <!--带更多链接-->
+        <a href="{{content.header.link}}" class="{{content.header.className}}">
+          <h2>{{{content.header.title}}}</h2>
+          {{#ifCond content.header.morePosition '==' 'top'}}
+            <span class="am-list-news-more am-fr">{{{content.header.moreText}}}</span>
+          {{/ifCond}}
+        </a>
+      {{else}} <!--不带更多链接-->
+        <h2>{{{content.header.title}}}</h2>
+      {{/if}}
+    </div>
+  {{/if}}
+ <div class="am-list-news-bd">
+  <ul class="am-list">
+  {{#ifCond options.type '==' 'thumb'}}
+    {{#ifCond options.thumbPosition '==' 'top'}} <!--缩略图在标题上方-->
+    {{#each content.main}}
+      <li class="am-g{{#if date}} am-list-item-dated{{/if}}{{#if desc}} am-list-item-desced{{/if}}{{#if img}} am-list-item-thumbed am-list-item-thumb-top{{/if}}">
+        {{!--
+          am-list-item-dated - 带日期
+          am-list-item-desced - 带描述
+          am-list-item-thumbed - 带缩略图的
+        --}}
+        {{#if img}}
+        <div class="am-list-thumb am-u-sm-12">
+          <a href="{{link}}" class="{{className}}">
+            <img src="{{img}}" alt="{{title}}"/>
+          </a>
+          {{#if thumbAddition}}
+            <div class="am-list-thumb-addon">{{{thumbAddition}}}</div>
+          {{/if}}
+        </div>
+        {{/if}}
+
+        <div class="{{#if img}}{{/if}} am-list-main my-cb">
+          {{#if title}}
+            <h3 class="am-list-item-hd"><a href="{{link}}" class="{{className}}">{{{title}}}</a></h3>
+          {{/if}}
+
+          {{#if progress}}
+            <div class="my-progress">
+              <div class="progressTriBox">
+                <div class="am-progress am-progress-striped am-progress-sm am-active ">
+                  <div class="am-progress-bar am-progress-bar-secondary"  style="width: {{progress}}%"></div>
+                </div>
+                <p class="moneyGet">{{moneyGet}}</p>
+                <p class="finishGoal">{{finishGoal}}</p>
+              </div>
+            </div>
+          {{/if}}
+
+          {{#if date}}
+            <span class="am-list-date">{{date}}</span>
+          {{/if}}
+
+          {{#if desc}}
+            <div class="am-list-item-text">{{{desc}}}</div>
+          {{/if}}
+
+          {{#if mainAddition}}
+            <div class="am-list-news-addon">{{{mainAddition}}}</div>
+          {{/if}}
+        </div>
+      </li>
+    {{/each}}
+    {{/ifCond}}
+  {{/ifCond}}
+    </ul>
+  </div>
+</div>
+  {{/this}}
+
+<!-- listTop end -->
+
+{{#this}} <div data-am-widget=\"list_news\" class=\"am-list-news{{#if theme}} am-list-news-{{theme}}{{else}} am-list-news-default{{/if}}{{#if widgetId}} {{widgetId}}{{/if}}{{#if className}} {{className}}{{/if}}\" {{#if id}}id=\"{{id}}\"{{/if}}> <!--列表标题--> {{#if content.header.title}} <div class=\"am-list-news-hd am-cf\"> {{#if content.header.link}} <!--带更多链接--> <a href=\"{{content.header.link}}\" class=\"{{content.header.className}}\"> <h2>{{{content.header.title}}}</h2> {{#ifCond content.header.morePosition '==' 'top'}} <span class=\"am-list-news-more am-fr\">{{{content.header.moreText}}}</span> {{/ifCond}} </a> {{else}} <!--不带更多链接--> <h2>{{{content.header.title}}}</h2> {{/if}} </div> {{/if}} <div class=\"am-list-news-bd\"> <ul class=\"am-list\"> {{#ifCond options.type '==' 'thumb'}} {{#ifCond options.thumbPosition '==' 'top'}} <!--缩略图在标题上方--> {{#each content.main}} <li class=\"am-g{{#if date}} am-list-item-dated{{/if}}{{#if desc}} am-list-item-desced{{/if}}{{#if img}} am-list-item-thumbed am-list-item-thumb-top{{/if}}\"> {{!-- am-list-item-dated - 带日期 am-list-item-desced - 带描述 am-list-item-thumbed - 带缩略图的 --}} {{#if img}} <div class=\"am-list-thumb am-u-sm-12\"> <a href=\"{{link}}\" class=\"{{className}}\"> <img src=\"{{img}}\" alt=\"{{title}}\"/> </a> {{#if thumbAddition}} <div class=\"am-list-thumb-addon\">{{{thumbAddition}}}</div> {{/if}} </div> {{/if}} <div class=\"{{#if img}}{{/if}} am-list-main my-cb\"> {{#if title}} <h3 class=\"am-list-item-hd\"><a href=\"{{link}}\" class=\"{{className}}\">{{{title}}}</a></h3> {{/if}} {{#if progress}} <div class=\"my-progress\"> <div class=\"progressTriBox\"> <div class=\"am-progress am-progress-striped am-progress-sm am-active \"> <div class=\"am-progress-bar am-progress-bar-secondary\" style=\"width: {{progress}}%\"></div> </div> <p class=\"moneyGet\">{{moneyGet}} <a href=\"{{getInLink}}\">（我要参与）</a> </p> <p class=\"finishGoal\">{{finishGoal}}</p> </div> </div> {{/if}} {{#if date}} <span class=\"am-list-date\">{{date}}</span> {{/if}} {{#if desc}} <div class=\"am-list-item-text\">{{{desc}}}</div> {{/if}} {{#if mainAddition}} <div class=\"am-list-news-addon\">{{{mainAddition}}}</div> {{/if}} </div> </li> {{/each}} {{/ifCond}} {{/ifCond}} </ul> </div> </div>{{/this}}
+
+
+<!-- footer start -->
+
+
+
+
+<!-- footer end -->

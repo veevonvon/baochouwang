@@ -1,0 +1,239 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>[!--pagetitle--]</title>
+<meta name="keywords" content="[!--pagekey--]"/>
+<meta name="description" content="[!--pagedes--]"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" type="image/png" href="[!--news.url--]img/icon.jpg">
+<link rel="stylesheet" href="[!--news.url--]mobile/mcss/amazeui.min.css">
+<link rel="stylesheet" href="[!--news.url--]mobile/mcss/app.css">
+</head>
+<body>
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>header header}}
+
+  {{>slider slider}}
+
+  {{>myList list1}}
+
+  {{>myListTop list2}}
+
+  {{>myFooter footer}}
+
+  {{>navbar navbar}}
+</script>
+<script src="[!--news.url--]mobile/mjs/jquery.min.js"></script>
+<script src="[!--news.url--]mobile/mjs/amazeui.js"></script>
+<script src="[!--news.url--]mobile/mjs/handlebars.min.js"></script>
+<script src="[!--news.url--]mobile/mjs/amazeui.widgets.helper.js"></script>
+<script>
+  var $tpl = $('#amz-tpl');
+  var source = $tpl.text();
+  var template = Handlebars.compile(source);
+  var data = {
+    header: {
+      "content": {
+        "left": [
+          {
+            "link": "/mobile/",
+            "icon": "home"
+            // "customIcon": 'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 20"><path d="M10,0l2,2l-8,8l8,8l-2,2L0,10L10,0z" fill="%23fff"/></svg>'
+          }
+        ],
+        "title": "抱筹网",
+        "right": [
+          {
+            "link": "/mobile/","icon": "user"
+          }
+        ]
+      },
+      "theme": "default"
+    },
+
+    slider: {
+      "theme": "b2",
+      //"sliderConfig": "{\"directionNav\":false}",
+      "content": [
+        {
+          "link":"###",
+          "img": "./d/file/banner/2015-10-09/d49f769e86ca09400743981f0a7d89fb.jpg"
+        },
+        {
+          "img": "./d/file/banner/2015-10-09/6a99f281583dfcc27cfd57e2b8f9c34a.jpg"
+        }
+      ]
+    },
+
+    list1: {
+      "options": {
+        "type": "thumb",
+        "thumbPosition": "left"
+      },
+      "content": {
+        "header": {
+          "title": "推荐项目",
+          "link": "[!--news.url--]$public_r['add_mobile_url']",
+          "moreText": "更多 >>",
+          "morePosition": "top"
+        },
+        "main": [
+
+        [e:loop={"SELECT shareSmalltext,czAmount,classid,id,titlepic,title,price,mainid,titleurl FROM phome_ecms_shop where classid=46 or classid =48 or classid = 49  order by price desc ",1,24,0}]
+<?php
+        $sql=$empire->query("SELECT sum(pstotal) as pstotal,COUNT(1) AS wscounts  FROM  phome_enewsshopdd t1 LEFT JOIN phome_enewsshopdd_add t2 ON t1.ddid = t2.ddid WHERE buycar LIKE '%|$bqr[classid],$bqr[id]|%' ");
+                                $wsamount=0;  
+                                $wscounts=0;
+        while($wszc=$empire->fetch($sql))
+        {
+                                       $wsamount=$wszc[pstotal];
+                                       $wscounts=$wszc[wscounts];
+        }
+        $sql=$empire->query("SELECT SUM(price*psalenum) as sumamount,psalenum FROM `phome_ecms_shop` WHERE mainid = '$bqr[id]' ");
+        while($info=$empire->fetch($sql))
+        {
+                                         $beichushu = $info[sumamount]*100+$wsamount;
+                                         $chushu = $bqr[czAmount];$baifen=0;
+                                         if($beichushu<=0){$baifen=0;}elseif($chushu<=0){$baifen=0;}else{$baifen =number_format($beichushu/$chushu,2); }
+        ?>
+          {
+            "title": "<?=$bqr[title]?>",
+            "link": "/mobile<?=$bqsr[titleurl]?>",
+            "desc": "<?=htmlspecialchars($bqr[shareSmalltext]) ?>",
+            "img": "<?=$bqr[titlepic]?>",
+            "className":"appShortA",
+            "mainAddition":"<?=$wscounts+$info[psalenum]?> 人已支持"
+          },
+
+        <?
+        }
+        ?>
+
+        [/e:loop]
+        ]
+      }
+    },
+    list2: {
+      "options": {
+        "type": "thumb",
+        "thumbPosition": "top"
+      },
+      "content": {
+        "header": {
+          "title": "精选项目",
+          "link": "###",
+          "moreText": "更多 &raquo;",
+          "morePosition": "top"
+        },
+        "main": [
+
+        [e:loop={"SELECT shareSmalltext,czAmount,classid,id,titlepic,title,price,mainid,titleurl FROM phome_ecms_shop where classid=46 or classid =48 or classid = 49  order by price desc ",1,24,0}]
+
+        <?php
+        $sql=$empire->query("SELECT sum(pstotal) as pstotal,COUNT(1) AS wscounts  FROM  phome_enewsshopdd t1 LEFT JOIN phome_enewsshopdd_add t2 ON t1.ddid = t2.ddid WHERE buycar LIKE '%|$bqr[classid],$bqr[id]|%' ");
+                                $wsamount=0;  
+                                $wscounts=0;
+        while($wszc=$empire->fetch($sql))
+        {
+                                       $wsamount=$wszc[pstotal];
+                                       $wscounts=$wszc[wscounts];
+        }
+        $sql=$empire->query("SELECT SUM(price*(pmaxnum+psalenum)) AS zamount,SUM(price*psalenum) as sumamount,psalenum  FROM `phome_ecms_shop` WHERE mainid = '$bqr[id]' ");
+        while($info=$empire->fetch($sql))
+        {
+                                         $beichushu = $info[sumamount]*100+$wsamount;
+                                         $chushu = $bqr[czAmount];$baifen=0;
+                                         if($beichushu<=0){$baifen=0;}elseif($chushu<=0){$baifen=0;}else{$baifen =number_format($beichushu/$chushu,2); }
+        ?>
+
+          {
+            "title": "<?=$bqr[title]?>",
+            "link": "/mobile<?=$bqsr[titleurl]?>",
+            "desc": "<?=htmlspecialchars($bqr[shareSmalltext]) ?>",
+            "img": "<?=$bqr[titlepic]?>",
+            "progress":"<?=$baifen?>",
+            "moneyGet":"<?=$wscounts+$info[psalenum ]?>人参与",
+            "getInLink":"/mobile<?=$bqsr[titleurl]?>",
+            "finishGoal":"已完成<?=$baifen ?>%"
+          },
+
+        <?
+        }
+        ?>
+
+        [/e:loop]
+        ]
+      },
+      "theme": "default"
+    },
+
+    footer: {
+      "options": {
+        "modal": true,
+        "techSupportCo": "抱筹网",
+        "techSupportSite": "http://www.baochouwang.com/"
+      },
+      "content": {
+        "owner": "抱筹网",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2015 深圳前海鼎汇众筹金融服务有限公司"
+          },
+          {
+            "detail": "粤ICP备15087263号-1"
+          }
+        ]
+      }
+    },
+
+    navbar: {
+      "options": {
+        "cols": "4",
+        "iconpos": "top"
+      },
+      "content": [
+        {
+          "title": "一键分享",
+          "link": "",
+          "icon": "share-square-o",
+          "dataApi": "data-am-navbar-share"
+        },
+        {
+          "title": "二维码",
+          "link": "",
+          "icon": "QRCode",
+          "dataApi": "data-am-navbar-qrcode"
+        },
+        {
+          "title": "关于我们",
+          "link": "###",
+          "icon": "user-md",
+          "dataApi": ""
+        },
+        {
+          "title": "联系我们",
+          "link": "###",
+          "icon": "location-arrow",
+          "dataApi": ""
+        },
+        {
+          "title": "下载说明",
+          "link": "###",
+          "icon": "download",
+          "dataApi": ""
+        }
+      ]
+    }
+  };
+  var html = template(data);
+  $tpl.before(html);
+</script>
+<div>
+
+</div>
+</body>
+</html>

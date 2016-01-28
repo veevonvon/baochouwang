@@ -1,0 +1,201 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[!--pagetitle--]</title>
+  <meta name="keywords" content="[!--pagekey--]"/>
+  <meta name="description" content="[!--pagedes--]"/>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=yes">
+  <link rel="shortcut icon" type="image/png" href="[!--news.url--]img/icon.jpg">
+  <link rel="stylesheet" href="/mcss/amazeui.min.css">
+  <link rel="stylesheet" href="/mcss/user.css?v=20151231">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-or">
+{{#orderResult}}
+<div class="">
+  <div class="orderCheck">
+  {{#if success}}
+    <span class="am-icon-btn am-success am-icon-check"></span>
+    <p>支付成功，感谢您的支持</p>
+  {{else}}
+    <span class="am-icon-btn am-icon-frown-o"></span>
+    <p>未能成功支付</p>
+  {{/if}}
+  </div>
+  <div class="orderResult am-radius">
+    <p>订单金额：￥{{price}}</p>
+    <p>订单号：{{order}}</p>
+    {{#if success}}{{else}}
+    <p class="moreAsd">如果支付遇到问题可点击下方“支付遇到问题？”按钮提交您的问题，工作人员将会尽全力为您解答，也可以直接拨打热线：<a href="tel:0752-2802268">0752-2802268</a></p>
+    {{/if}}
+    <div class="am-container orderQustion">
+      <div class="am-u-sm-6">
+      {{#if success}}
+        <a class="am-u-sm-12 am-btn am-btn-primary am-radius" href="/mobile/">更多众筹项目</a>
+      {{else}}
+        <a class="am-u-sm-12 am-btn am-btn-warning am-radius" href="javascript:;" id="showAsk">支付遇到问题?</a>
+      {{/if}}
+      </div>
+      <div class="am-u-sm-6">
+      {{#if success}}
+        <a class="am-u-sm-12 am-btn am-btn-success am-radius" href="{{orderPage}}">查看我的订单</a>
+      {{else}}
+        <a class="am-u-sm-12 am-btn am-btn-success am-radius" href="{{payPage}}">重新支付</a>
+      {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="am-modal am-modal-alert askAlert" tabindex="-1" id="askAlert">
+    <div class="am-modal-bd" id="askAlertMsg"></div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+  <div class="am-modal am-modal-confirm myask" tabindex="-2" id="myask">
+    <div class="am-modal-dialog">
+      <div class="am-modal-bd">
+        <textarea class="orderAsk" rows="5" id="orderAsk" placeholder="亲，您遇到了什么问题"></textarea>
+      </div>
+      <div class="am-modal-footer">
+        <span class="am-modal-btn" id="orderAskYes" data-am-modal-confirm data-am-loading="{spinner: 'circle-o-notch', loadingText: '正在提交'}">提交问题</span>
+        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      </div>
+    </div>
+  </div>
+</div>
+{{/orderResult}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>myFooter footer}}
+</script>
+  
+
+<script src="/mjs/jquery.min.js"></script>
+<script src="/mjs/amazeui.min.js"></script>
+<script src="/mjs/handlebars.min.js"></script>
+<script src="/mjs/include/tpl.js"></script>
+<script src="/mjs/amazeui.widgets.helper.js"></script>
+<script src="/mjs/app.js"></script>
+<script>
+
+var data={};
+data.orderResult = {
+  success:0,
+  price:12,
+  order:1231324587845,
+  orderPage:"3",
+  payPage:"4"
+};
+data.footer ={
+      "options": {
+        "modal": true,
+        "techSupportCo": "抱筹网",
+        "techSupportSite": "http://www.baochouwang.com/"
+      },
+      "content": {
+        "owner": "抱筹网",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2015 深圳前海鼎汇众筹金融服务有限公司"
+          },
+          {
+            "detail": "粤ICP备15087263号-1"
+          }
+        ]
+      }
+    };
+
+var objHead = {};
+objHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "",
+        "icon": "chevron-circle-left"
+      }
+    ],
+    "title": "支付结果",
+    "right": [
+      {
+        "link": "/mobile/","icon": "home"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+
+app.temInit("amz-head",objHead);
+app.temInit("amz-tpl",data);
+app.temInit("amz-or",data);
+</script>
+<script>
+  $("#showAsk").on("click",function(){
+    var send = false,
+    status = false;
+    $("#myask").modal({
+      relatedTarget: this,
+      closeOnConfirm:false,
+      onConfirm:function(){
+        //按钮状态
+        $("#orderAskYes").button("loading");
+        //ajax提交数据
+        var question = $("#orderAsk").val();
+        $.ajax({
+          url:"/",
+          type:"POST",
+          data:{ask:question},
+          success:function(){
+            send = true;
+            status = true;
+            $("#myask").modal("close");
+            $("#orderAskYes").button("reset");
+            $("#myask").on("closed.modal.amui",mkAlert(send,status));
+          },
+          error:function(){
+            send = true;
+            status = false;
+            $("#myask").modal("close");
+            $("#orderAskYes").button("reset");
+            $("#myask").on("closed.modal.amui",mkAlert(send,status));
+          }
+        })
+      },
+      onCancel:function(){}
+    })
+  })
+  function mkAlert(send,status){
+    //提交数据完成后弹窗
+    if(send && status ===  "success"){
+      askAlert("success")
+    }else if(send){
+      askAlert();
+    }
+  }
+  function askAlert(msg){
+    var s = '提交成功，工作人员将会尽快给您答复，如需帮助请拨打热线：</br><a href="tel:0752-2802268">0752-2802268</a>',
+    e = '提交失败';
+    if(msg === "success"){
+      $("#askAlertMsg").text(s);
+    }else{
+      $("#askAlertMsg").text(e);
+    };
+    $("#askAlert").modal("open");
+  }
+</script>
+</body>
+</html>

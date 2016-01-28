@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>抱筹网</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="stylesheet" href="/mcss/amazeui.min.css">
+  <link rel="stylesheet" href="/mcss/user.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>u user}}
+
+  {{>myFooter footer}}
+</script>
+  
+
+<script src="/mjs/jquery.min.js"></script>
+<script src="/mjs/amazeui.js"></script>
+<script src="/mjs/handlebars.min.js"></script>
+<script src="/mjs/include/tpl.js"></script>
+<script src="/mjs/amazeui.widgets.helper.js"></script>
+<script src="/mjs/app.js"></script>
+<script>
+
+var data={};
+data.user = {};
+data.footer ={
+      "options": {
+        "modal": true,
+        "techSupportCo": "抱筹网",
+        "techSupportSite": "http://www.baochouwang.com/"
+      },
+      "content": {
+        "owner": "抱筹网",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2015 深圳前海鼎汇众筹金融服务有限公司"
+          },
+          {
+            "detail": "粤ICP备15087263号-1"
+          }
+        ]
+      }
+    };
+
+var objHead = {};
+objHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "",
+        "icon": "chevron-circle-left"
+      }
+    ],
+    "title": "抱筹网",
+    "right": [
+      {
+        "link": "/","icon": "home"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+
+app.temInit("amz-head",objHead);
+app.temInit("amz-tpl",data);
+</script>
+</body>
+</html>

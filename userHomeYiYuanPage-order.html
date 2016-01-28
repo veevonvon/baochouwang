@@ -1,0 +1,180 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><?=$thispagetitle?></title>
+  <meta name="description" content="抱筹网会员中心">
+  <meta name="keywords" content="抱筹网会员中心">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="/img/icon.jpg">
+  <link rel="stylesheet" href="mcss/amazeui.min.css">
+  <link rel="stylesheet" href="mcss/user.css">
+  <link rel="stylesheet" href="mcss/yiYuanOrder.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{#yiYuanPage}}
+  <div class="yiYuranMenu">
+    <a class="menuItem menuLeft {{#if orderPage}}active{{/if}}" href="">云购订单</a><a class="menuItem menuRight {{#if rewardPage}}active{{/if}}" href="">已获得商品</a>
+  </div>
+<div class="orderPage">
+  {{#each item}}
+  {{#if orderNum}}
+  <div class="orderNum">订单号：{{orderNum}} <span class="am-icon-angle-down"></span> <span class="am-fr">￥{{price}}</span></div>
+    <div class="orderItem am-u-sm-12">
+      <a href="{{link}}">
+      <sapn class="projectImg am-u-sm-5"><img src="{{img}}" alt=""></sapn>
+      <div class="projectInfo am-u-sm-7">
+        <h3 class="yiYuanName">{{name}}</h3>
+        <p class="yiYuanDsc" style="max-height:">{{reward}}&nbsp</p>
+        <div class="status">
+          {{#if pjStatus}}
+          <span class="am-fl am-badge am-badge-success">已抽奖</span>
+          {{else}}
+          <span class="am-fl am-badge am-badge-secondary">正在进行</span>
+          {{/if}}
+          {{#if payStatus}}
+          <span class="am-fr am-badge am-badge-success">已支付</span>
+          {{else}}
+          <span class="am-fr am-badge am-badge-danger">未支付</span>
+          {{/if}}
+        </div>
+      </div>
+      </a>
+      {{#if payStatus}}
+      <div class="am-u-sm-12 payBtnContain"><a href="javascript:;" class="am-btn am-btn-primary am-btn-block am-round toPay" data-am-modal="{target: '#{{orderNum}}'}">查看云购码</a></div>
+      <div class="am-popup" id="{{orderNum}}">
+        <div class="am-popup-inner">
+          <div class="am-popup-hd">
+            <h4 class="am-popup-title">云购码</h4>
+            <span data-am-modal-close
+                  class="am-close am-icon-remove"></span>
+          </div>
+          {{#each rewardNum}}
+          {{#if num}}
+          <div class="am-popup-bd">
+            {{num}}
+          </div>
+          {{/if}}
+          {{/each}}
+          <div class="am-popup-bd lastOne" data-am-modal-close>
+            <span class="am-icon-angle-down"></span> 返回
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <div class="am-u-sm-12 payBtnContain"><a href="{{payLink}}" class="am-btn am-btn-success am-btn-block am-round toPay">立即支付 ￥{{price}}</a></div>
+      {{/if}}
+    </div>
+  {{/if}}
+  {{/each}}
+</div>
+  {{/yiYuanPage}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-foot">
+  {{>myFooter footer}}
+</script>
+  
+
+<script src="mjs/jquery.min.js"></script>
+<script src="mjs/amazeui.js"></script>
+<script src="mjs/handlebars.min.js"></script>
+<script src="mjs/include/tpl.js"></script>
+<script src="mjs/amazeui.widgets.helper.js"></script>
+<script src="mjs/app.js"></script>
+<script>
+
+var data={};
+data.yiYuanPage = {
+  orderPage:"1",
+  rewardPage:"",
+  item:[
+    {
+      "orderNum":"123645456",
+      "link":"asd",
+      "img":"http://photocdn.sohu.com/20151203/Img429480279.jpeg",
+      "name":"iPhone6s一元购",
+      "reward":"第00000001期",
+      "price":"1",
+      "pjStatus":"",
+      "payStatus":"<?=$ha?>",
+      "payLink":"",
+      "rewardNum":[{"num":132564},{"num":132564},{"num":132564},{"num":132564},{}]
+    },
+    {
+      "orderNum":"12365456",
+      "link":"asd",
+      "img":"http://photocdn.sohu.com/20151203/Img429480279.jpeg",
+      "name":"拍立得一元购",
+      "reward":"第00000002期",
+      "price":"1",
+      "pjStatus":"",
+      "payStatus":"<?=$ha?>",
+      "payLink":"",
+      "rewardNum":[{"num":"a"},{"num":132564},{"num":132564},{"num":132564},{}]
+    }
+  ]
+};
+var objFoot = {};
+objFoot.footer ={
+      "options": {
+        "modal": true,
+        "techSupportCo": "抱筹网",
+        "techSupportSite": "http://www.baochouwang.com/"
+      },
+      "content": {
+        "owner": "抱筹网",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2015 深圳前海鼎汇众筹金融服务有限公司"
+          },
+          {
+            "detail": "粤ICP备15087263号-1"
+          }
+        ]
+      }
+    };
+
+var objHead = {};
+objHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "",
+        "icon": "chevron-circle-left"
+      }
+    ],
+    "title": "<?=$thispagetitle?>",
+    "right": [
+      {
+        "link": "/","icon": "home"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+
+app.temInit("amz-head",objHead);
+app.temInit("amz-tpl",data);
+app.temInit("amz-foot",objFoot);
+</script>
+<script>
+  $(".am-header-left.am-header-nav").on("click",function(){history.go(-1)});
+</script>
+</body>
+</html>

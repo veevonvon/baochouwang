@@ -1,0 +1,172 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>[!--pagetitle--]</title>
+  <meta name="keywords" content="[!--pagekey--]"/>
+  <meta name="description" content="[!--pagedes--]"/>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=yes">
+  <link rel="shortcut icon" type="image/png" href="[!--news.url--]img/icon.jpg">
+  <link rel="stylesheet" href="/mcss/amazeui.min.css">
+  <link rel="stylesheet" href="/mcss/header.css">
+  <link rel="stylesheet" href="/mcss/caculate.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+{{#header}}
+  <header data-am-widget="header" class="am-header myHead am-no-layout">
+  <div class="am-header-left am-header-nav">
+      <a href="{{left.link}}" class="">
+            <i class="am-header-icon am-icon-{{left.icon}}"></i>
+      </a>
+  </div>
+  <h1 class="am-header-title myHeadTitle">
+      {{title}}
+  </h1>
+  <div class="am-header-right am-header-nav">
+      <a href="{{right.link}}" class="" data-am-modal="{target: '#my-alert'}">
+            {{right.text}}
+      </a>
+  </div>
+</header>
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+<div class="am-modal-dialog">
+  <div class="am-modal-bd">
+    <h5>计算规则：</h5>
+    1.计算规则计算规则计算规则计算规则计算规则计算规则计算规则计算规则计算规则计算规则计算规则计算规则计算规则</br>
+    2..am-modal-bd.am-modal-bd.am-modal-bd.am-modal-bd.am-modal-bd.am-modal-bd.am-modal-bd
+  </div>
+</div>
+</div>
+{{/header}}
+</script>
+
+<div>
+<div class="formHead">
+<p>截止揭晓时间[2016-01-06 15:12:12.123]</p>
+<p>最后100条全站购买时间记录</p>
+</div>
+<table class="am-table formBody">
+    <thead>
+        <tr>
+            <th>购买时间</th>
+            <th class="data">转换数据</th>
+            <th>会员账号</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+        <tr>
+            <td>2016-01-02</td>
+            <td class="data">02165412</td>
+            <td>fuckyou</td>
+        </tr>
+    </tbody>
+</table>
+<div class="formFoot am-container">
+<p>取以上结果得：</p>
+<p>1.求和：1566541654654（上面100条云购记录时间取值相加之和）</p>
+<p>1.取余：1654654654654（100条时间记录之和）%61（本商品总需参与人次）=1（余数）</p>
+<p>3.计算结果：1（余数）+1000001=1000002</p>
+</div>
+</div>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>myFooter footer}}
+</script>
+  
+
+<script src="/mjs/jquery.min.js"></script>
+<script src="/mjs/amazeui.min.js"></script>
+<script src="/mjs/handlebars.min.js"></script>
+<script src="/mjs/include/tpl.js"></script>
+<script src="/mjs/amazeui.widgets.helper.js"></script>
+<script src="/mjs/app.js"></script>
+<script>
+
+var data={};
+data.footer ={
+      "options": {
+        "modal": true,
+        "techSupportCo": "抱筹网",
+        "techSupportSite": "http://www.baochouwang.com/"
+      },
+      "content": {
+        "owner": "抱筹网",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2015 深圳前海鼎汇众筹金融服务有限公司"
+          },
+          {
+            "detail": "粤ICP备15087263号-1"
+          }
+        ]
+      }
+    };
+
+var objHead = {};
+objHead.header = {
+  "left": {
+      "link": "/mobile/",
+      "icon": "chevron-circle-left"
+    },
+  "title": "计算结果",
+  "right": {
+    "link":"javascript:;",
+    "text":"计算方法"
+  }
+};
+
+app.temInit("amz-head",objHead);
+app.temInit("amz-tpl",data);
+</script>
+</body>
+</html>

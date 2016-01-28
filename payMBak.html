@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>抱筹网</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="stylesheet" href="mcss/amazeui.min.css">
+  <link rel="stylesheet" href="mcss/pay.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>pay payData}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-foot">
+  {{>myFooter footer}}
+
+  {{>navbar navbar}}
+</script>
+
+
+<script src="mjs/jquery.min.js"></script>
+<script src="mjs/amazeui.js"></script>
+<script src="mjs/handlebars.min.js"></script>
+<script src="mjs/include/tpl.js"></script>
+<script src="mjs/amazeui.widgets.helper.js"></script>
+<script src="mjs/app.js"></script>
+<script>
+
+var data={};
+data.payData = {
+  objTitle:"串串咖啡",
+  payTitle:[{title:"支持1元"},{title:"支持1元"},{title:"支持1元"},{title:"支持1元",last:"true"}],
+  item:[
+    {
+      first:"true",
+      payItemDsc:"城市艺术人文书店——Long Time No Read好久不读，招募愿与我们一起复兴阅读的爱书人。",
+      img:[{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"},{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"}]
+    },
+    {
+      payItemDsc:"城市艺术人文书店——Long Time No Read好久不读，招募愿与我们一起复兴阅读的爱书人。",
+      img:[{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"},{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"}]
+    },
+    {
+      payItemDsc:"城市艺术人文书店——Long Time No Read好久不读，招募愿与我们一起复兴阅读的爱书人。",
+      img:[{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"},{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"}]
+    },
+    {
+      payItemDsc:"城市艺术人文书店——Long Time No Read好久不读，招募愿与我们一起复兴阅读的爱书人。",
+      img:[{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"},{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"}]
+    }
+  ]
+};
+var objHead = {};
+objHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "#left-link",
+        "icon": "home",
+        "customIcon": "data:image/svg+xml;charset=utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 12 20\"><path d=\"M10,0l2,2l-8,8l8,8l-2,2L0,10L10,0z\" fill=\"%23fff\"/></svg>"
+      }
+    ],
+    "title": "抱筹网",
+    "right": [
+      {
+        "link": "#right-link","icon": "user"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+var objFoot= {
+  footer: {
+      "options": {
+        "modal": true,
+        "techSupportCo": "XXX",
+        "techSupportSite": "http://www.yunshipei.com/"
+      },
+      "content": {
+        "owner": "云适配",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2013  AllMobilize Inc."
+          },
+          {
+            "detail": "京ICP备13033158"
+          }
+        ]
+      }
+  },
+  navbar: {
+    "options": {
+      "cols": "4",
+      "iconpos": "top"
+    },
+    "content": [
+      {
+        "title": "一键拨号",
+        "link": "tel:123456789",
+        "icon": "phone",
+        "dataApi": ""
+      },
+      {
+        "title": "一键分享",
+        "link": "",
+        "icon": "share-square-o",
+        "dataApi": "data-am-navbar-share"
+      },
+      {
+        "title": "二维码",
+        "link": "",
+        "icon": "QRCode",
+        "dataApi": "data-am-navbar-qrcode"
+      },
+      {
+        "title": "关于我们",
+        "link": "http://yunshipei.com",
+        "icon": "user-md",
+        "dataApi": ""
+      },
+      {
+        "title": "下载说明",
+        "link": "http://yunshipei.com",
+        "icon": "download",
+        "dataApi": ""
+      },
+      {
+        "title": "联系我们",
+        "link": "http://yunshipei.com",
+        "icon": "location-arrow",
+        "dataApi": ""
+      }
+    ]
+  }
+};
+app.temInit("amz-head",objHead);
+// app.temInit("amz-foot",objFoot);
+app.temInit("amz-tpl",data);
+</script>
+<script>
+  $("#gotoAdd").on("click",function(){
+    $("#addressPage").fadeIn();
+    $("#totalPage").hide();
+    $("#gotoTtp").on("click",function(){
+      $("#addressPage").hide();
+      $("#totalPage").fadeIn();
+    })
+  })
+  $(".gotoFix").on("click",function(){
+    $("#addressPage").hide();
+    $("#fixPage").fadeIn();
+    $("#gotoAddress").on("click",function(){
+      $("#fixPage").hide();
+      $("#addressPage").fadeIn();
+    })
+  })
+$.getScript("mjs/include/addressChioce.js",function(){
+  //地址选择
+  console.log("sadasd");
+  var s=["province","city","none"];//三个select的name
+  $.fn.addressChioce(s);
+  //地址选择end
+})
+</script>
+</body>
+</html>

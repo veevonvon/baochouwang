@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>[!--pagetitle--]</title>
+<meta name="keywords" content="[!--pagekey--]"/>
+<meta name="description" content="[!--pagedes--]"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=yes">
+<link rel="shortcut icon" type="image/png" href="[!--news.url--]img/icon.jpg">
+<link rel="stylesheet" href="/mcss/amazeui.min.css">
+<link rel="stylesheet" href="/mcss/header.css">
+<link rel="stylesheet" href="/mcss/contentM.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+{{#header}}
+  <header data-am-widget="header" class="am-header myHead am-no-layout">
+  <div class="am-header-left am-header-nav">
+      <a href="{{left.link}}" class="">
+            <i class="am-header-icon am-icon-{{left.icon}}"></i>
+      </a>
+  </div>
+  <h1 class="am-header-title myHeadTitle">
+      抱筹网
+  </h1>
+  <div class="am-header-right am-header-nav">
+      <a href="{{right.link}}" class="" data-am-modal="{target: '#my-alert'}">
+            {{right.text}}
+      </a>
+  </div>
+</header>
+<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+<div class="am-modal-dialog">
+  <div class="am-modal-bd">
+    微信点击右上角“分享到朋友圈”
+  </div>
+  <div class="am-modal-footer">
+    <span class="am-modal-btn">我知道啦</span>
+  </div>
+</div>
+</div>
+{{/header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{#contentData}}
+  <div class="selectBox">
+  <div class="selectDiv">
+  <ul class="selectCt">
+    {{#each selectDiv}}{{#if num}}<li><a href="{{link}}">{{num}}</a></li>{{/if}}{{/each}}
+  </ul>
+</div>
+</div>
+<div class="am-container contentM">
+  {{#if imgSrc}}  
+  <img width="100%" src="{{imgSrc}}" class="imgClass" alt="{{imgAlt}}">
+  {{/if}}
+
+  {{#if title}}
+  <div class="am-g">
+    <h2 class="am-u-sm-12 joinText">{{title}} <span class="am-badge">已结束</span></h2>
+    <p class="am-u-sm-12 joinTexts">本期幸运抽奖码: <span>{{joinLucky.num}}</span>
+      <a class="am-badge am-badge-primary am-fr" href="/">计算结果</a>
+    </p>
+    <p class="am-u-sm-12 joinTexts">获奖者: <a href="joinLucky.link">{{joinLucky.name}}</a></p>
+  </div>
+  {{/if}}
+</div>
+
+<div class="am-container supBtn">
+  <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+    <a href="{{supLink}}" class="am-btn am-btn-primary am-btn-block am-round">参与众筹</a>
+  </div>
+</div>
+<div class="am-container joinUserBox">
+
+{{#if joinUserText}}
+  <p class="am-u-sm-6" style="margin:0;color:#aaa;text-align:left;">您的抽奖码：</p>
+    <div>
+    {{#each joinUserText}}
+    {{#if num}}
+    <span style="font-size:14px;" class="am-u-sm-3 am-u-end">{{num}}</span>
+    {{/if}}
+    {{/each}}
+    </div>
+    <p style="margin:0;padding-top:20px;;color:#aaa;clear:both" class="am-cf" data-am-collapse="{parent:'#joinNum',target: '#do-not-say-1'}">查看更多抽奖码</p>
+    <div>
+    <div class="am-collapse am-g" id="do-not-say-1">
+      {{#each joinOther}}
+      {{#if num}}
+      <span style="font-size:14px;" class="am-u-sm-3 am-u-end">{{num}}</span>
+      {{/if}}
+      {{/each}}
+    </div>
+    </div>
+{{/if}}
+</div>
+
+<div class="am-tabs" id="doc-my-tabs">
+  <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
+    <li class="am-active"><a href="">所有参与</a></li>
+    <li><a href="">评论<span class="am-badge am-badge-danger am-round" style="position:relative;top:-2px;left:5px;opacity:0.8;">6</span></a></li>
+    <li><a href="">奖品详情</a></li>
+  </ul>
+  <div class="am-tabs-bd">
+    <div class="am-tab-panel am-active">
+    {{#each buy}}
+      <div class="buy">
+        <span class="buyUser"><img src="{{img}}" alt="用户头像"></span>
+        <p class="buyText"><strong style="color:#38BB6C">{{name}}</strong> 参加了抽奖 {{time}}</p>
+      </div>
+    {{/each}}
+    </div>
+    <div class="am-tab-panel">
+    {{#each comment}}
+      <div class="buy">
+        <div class="buyComment">
+          <p class="userName"><span class="buyUser comUser"><img src="{{img}}" alt=""></span><a href="javascript:;"> {{name}}</a> {{time}}</p>
+          <p class="buyCommentText">{{text}}</p>
+        </div>
+      </div>
+    {{/each}}
+    </div>
+    <div class="am-tab-panel">{{{video}}}{{{detailData}}}</div>
+  </div>
+</div>
+{{/contentData}}
+</script>
+
+<script src="/mjs/jquery.min.js"></script>
+<script src="/mjs/amazeui.js"></script>
+<script src="/mjs/handlebars.min.js"></script>
+<script src="/mjs/include/tpl.js"></script>
+<script src="/mjs/amazeui.widgets.helper.js"></script>
+<script src="/mjs/app.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script>
+var data={};
+data.contentData = {
+  selectDiv:[{num:"第 1 期",link:"javascript:;"},{num:"第 2 期",link:"javascript:;"},{num:"第 3 期",link:"javascript:;"},{num:"第 4 期",link:"javascript:;"},{num:"第 5 期",link:"javascript:;"},{num:"第 5 期",link:"javascript:;"},{num:"第 5 期",link:"javascript:;"},{num:"第 5 期",link:"javascript:;"}],
+  imgSrc:'http://static.ns-cloud.cn/images/853afed02f9345c29582a6f0290a8fc3.png',
+  imgAlt:'[!--title--]',
+  title:'你正在使用你正在使用',
+  dsc:'你正在使用你正在使用你正在使用你正在使用你正在使用',
+  supLink:'[!--news.url--]mobile/e/ShopSys/doaction.php?enews=AddBuycar&classid=[!--classid--]&id=[!--id--]&show=1',
+  joinLucky:{num:1232456,name:"veevonvon",link:"javascript:;"},
+  joinUserText:[{num:123456}],
+  joinOther:[{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456},{num:123456}],
+  buy:[{img:"http://static.ns-cloud.cn/images/853afed02f9345c29582a6f0290a8fc3.png",name:"veevonvon",time:"2015年12月12日"}],
+  comment:[{img:"http://p1.wmpic.me/article/2015/12/15/1450142166_ZQbqPNHQ_215x185.jpg",name:"veevonvon",time:"2015年12月12日",text:"wohfjkashdkjsafkjgfjkasdlkgjalkfdsgkjhdsfakghdfkljghkjfdsa"}],
+  video:'',
+  detailData:'你正在使用你正在使用你正在使用你正在使你正在使用你正在使用你正在使用用你正在使用你正在使用你正在使用<img src="http://p1.wmpic.me/article/2015/12/15/1450142166_ZQbqPNHQ_215x185.jpg">'
+};
+
+var objHead = {};
+objHead.header = {
+  "left": {
+      "link": "/mobile/",
+      "icon": "chevron-circle-left"
+    },
+  "title": "抱筹网",
+  "right": {
+    "link":"javascript:;",
+    "text":"分享"
+  }
+};
+app.temInit("amz-head",objHead);
+//app.temInit("amz-foot",objFoot);
+app.temInit("amz-tpl",data);
+
+$('#doc-my-tabs').tabs();
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>抱筹网</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="stylesheet" href="/workDirM/mcss/amazeui.min.css">
+  <link rel="stylesheet" href="/workDirM/mcss/pay.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>pay payData}}
+</script>
+
+<script type="text/x-handlebars-template" id="amz-foot">
+  {{>myFooter footer}}
+
+  {{>navbar navbar}}
+</script>
+
+<script src="/workDirM/mjs/jquery.min.js"></script>
+<script src="/workDirM/mjs/amazeui.js"></script>
+<script src="/workDirM/mjs/handlebars.min.js"></script>
+<script src="/workDirM/mjs/include/tpl.js"></script>
+<script src="/workDirM/mjs/amazeui.widgets.helper.js"></script>
+<script src="/workDirM/mjs/app.js"></script>
+<script>
+
+var data={};
+data.payData = {
+  objTitle:"<?=$r['title']?>",
+  payTitle:[{title:"支持1元"},{title:"支持1元"},{title:"支持1元"},{title:"支持1元"},{}],
+  item:[
+    {
+      first:"true",
+      payItemDsc:"感谢您的支持：您将收到我们寄出的信件或贺卡，这份支持将助我们的梦想飞的更高更远。"
+    },
+    {
+      payItemDsc:"城市艺术人文书店——Long Time No Read好久不读，招募愿与我们一起复兴阅读的爱书人。",
+      img:[{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"},{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"}]
+    },
+    {
+      payItemDsc:"城市艺术人文书店——Long Time No Read好久不读，招募愿与我们一起复兴阅读的爱书人。",
+      img:[{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"},{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"}]
+    },
+    {
+      payItemDsc:"城市艺术人文书店——Long Time No Read好久不读，招募愿与我们一起复兴阅读的爱书人。",
+      img:[{imgSrc:"http://s.amazeui.org/media/i  /demos/bw-2014-06-19.jpg"},{imgSrc:"http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg"}]
+    }
+  ]
+};
+var objHead = {};
+objHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "#left-link",
+        "icon": "home",
+        "customIcon": "data:image/svg+xml;charset=utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 12 20\"><path d=\"M10,0l2,2l-8,8l8,8l-2,2L0,10L10,0z\" fill=\"%23fff\"/></svg>"
+      }
+    ],
+    "title": "抱筹网",
+    "right": [
+      {
+        "link": "#right-link","icon": "user"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+var objFoot= {
+  footer: {
+      "options": {
+        "modal": true,
+        "techSupportCo": "XXX",
+        "techSupportSite": "http://www.yunshipei.com/"
+      },
+      "content": {
+        "owner": "云适配",
+        "companyInfo": [
+          {
+            "detail": "CopyRight©2013  AllMobilize Inc."
+          },
+          {
+            "detail": "京ICP备13033158"
+          }
+        ]
+      }
+  },
+  navbar: {
+    "options": {
+      "cols": "4",
+      "iconpos": "top"
+    },
+    "content": [
+      {
+        "title": "一键拨号",
+        "link": "tel:123456789",
+        "icon": "phone",
+        "dataApi": ""
+      },
+      {
+        "title": "一键分享",
+        "link": "",
+        "icon": "share-square-o",
+        "dataApi": "data-am-navbar-share"
+      },
+      {
+        "title": "二维码",
+        "link": "",
+        "icon": "QRCode",
+        "dataApi": "data-am-navbar-qrcode"
+      },
+      {
+        "title": "关于我们",
+        "link": "http://yunshipei.com",
+        "icon": "user-md",
+        "dataApi": ""
+      },
+      {
+        "title": "下载说明",
+        "link": "http://yunshipei.com",
+        "icon": "download",
+        "dataApi": ""
+      },
+      {
+        "title": "联系我们",
+        "link": "http://yunshipei.com",
+        "icon": "location-arrow",
+        "dataApi": ""
+      }
+    ]
+  }
+};
+app.temInit("amz-head",objHead);
+// app.temInit("amz-foot",objFoot);
+app.temInit("amz-tpl",data);
+</script>
+<script>
+  $("#gotoAdd").on("click",function(){
+    $("#addressPage").fadeIn();
+    $("#totalPage").hide();
+    $("#gotoTtp").on("click",function(){
+      $("#addressPage").hide();
+      $("#totalPage").fadeIn();
+    })
+  })
+  $(".gotoFix").on("click",function(){
+    $("#addressPage").hide();
+    $("#fixPage").fadeIn();
+    $("#gotoAddress").on("click",function(){
+      $("#fixPage").hide();
+      $("#addressPage").fadeIn();
+    })
+  })
+$.getScript("/workDirM/mjs/include/addressChioce.js",function(){
+  //地址选择
+  var s=["province","city","none"];//三个select的name
+  $.fn.addressChioce(s);
+  //地址选择end
+})
+</script>
+<script>
+//ajax 提交表单
+var ajaxPage = {
+  address:function(typeEdit){
+    var typeAddress="EditAddress";
+    if(typeEdit === "edit"){
+      typeAddress="EditAddress";
+    }else if(typeEdit === "add"){
+      typeAddress="AddAddress";
+    };
+    $.ajax({
+      url:"http://www.baochouwang.com/e/ShopSys/doaction.php",
+      type:"POST",
+      data:{
+        addressname:$("#truename").val()+"-"+$("#phone").val()+"-"+$("#shen").val()+"-"+$("#city").val()+"-"+$("#address").val(),
+        truename:$("#truename").val(),
+        phone:$("#phone").val(),
+        address:$("#shen").val()+"-"+$("#city").val()+"-"+$("#address").val(),
+        enews:typeAddress,
+        addressid:$("#addressid").val()
+      },
+      success:function(data){
+        console.log(data);
+      }
+    })
+  },
+  shopCar:function(){
+    $.ajax({
+      url:"/e/shopSys/doaction.php",
+      type:"POST",
+      data:{
+        enews:"EditBuycar",
+        "num[]":$("#pic").val(),
+        "productid[]":""
+      }
+    })
+  }
+}
+//ajax 提交表单end
+  // $("#gotoSubmit").on("click",function(){ajaxPage.address()});
+
+</script>
+<script>
+  //功能控件
+  $("#inputPlus").on("click",function(){
+    var pic = Number($("#pic").val())+1;
+    if(pic>0){
+      update(100,pic);
+    }
+  })
+  $("#inputMinuse").on("click",function(){
+    var pic = Number($("#pic").val())-1;
+    if(pic>0){
+      update(100,pic);
+    }
+  })
+  function updateWholePrice(){
+    var priceCache = {"price":0,"pic":1};
+    function update(price,pic){
+      if(!price){
+        price = priceCache.price;
+      }else{
+        priceCache.price = price;
+      }
+      if(!pic){
+        pic = priceCache.pic;
+      }else{
+        priceCache.pic = pic;
+      }
+      $("#pic").val(pic);
+      $("#wholePrice").text(pic*price);
+    }
+    return update;
+  }
+  var update = updateWholePrice();
+
+  function updateAddressView(){
+    var cache = [];
+    function update(name,phone,province,city,address){
+      for(var i=0;i<arguments.length;i++){
+        if(!arguments[i]){
+          arguments[i] = cache[i];
+        }else{
+          cache[i] = arguments[i];
+        }
+      }
+      $("#userName-view").text(arguments[0]);
+      $("#phone-view").text(arguments[1]);
+      $("#fix-view").text(arguments[2]+"-"+arguments[3]+"-"+arguments[4]);
+    }
+    return update;
+  }
+  var update1 = updateAddressView();
+
+  function updateEditView(){
+    var cache = [];
+    function update(name,phone,province,city,address){
+      for(var i=0;i<arguments.length;i++){
+        if(!arguments[i]){
+          arguments[i] = cache[i];
+        }else{
+          cache[i] = arguments[i];
+        }
+      }
+      $("#truename").val(arguments[0]);
+      $("#phone").val(arguments[1]);
+      $("#province").val(arguments[2]);
+      $("#city").val(arguments[3]);
+      $("#address").val(arguments[4]);
+    }
+    return update;
+  }
+  var update2 = updateEditView();
+
+  function updateSelectView(){
+    var cache = [];
+    function update(name,phone,province,city,address){
+      for(var i=0;i<arguments.length;i++){
+        if(!arguments[i]){
+          arguments[i] = cache[i];
+        }else{
+          cache[i] = arguments[i];
+        }
+      }
+      $("#nameAndPhone").text(arguments[0]+" "+arguments[1]);
+      $("#provinceAndCity").text(arguments[2]+"-"+arguments[3]+"-"+arguments[4]);
+    }
+    return update;
+  }
+  var update3 = updateSelectView();  
+</script>
+</body>
+</html>

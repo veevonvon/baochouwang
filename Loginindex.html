@@ -1,0 +1,372 @@
+<?php
+if(!defined('InEmpireCMS'))
+{
+exit();
+}
+?>
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>抱筹网</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="stylesheet" href="/mobile/mcss/amazeui.min.css">
+  <link rel="stylesheet" href="/mobile/mcss/login.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，抱筹网 不提供支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<script type="text/x-handlebars-template" id="amz-head">
+  {{>header header}}
+</script>
+<script type="text/x-handlebars-template" id="amz-tpl">
+  {{>myLogin login}}
+</script>
+
+<script src="/mobile/mjs/jquery.min.js"></script>
+<script src="/mobile/mjs/amazeui.js"></script>
+<script src="/mobile/mjs/handlebars.min.js"></script>
+<script src="/mobile/mjs/include/tpl.js"></script>
+<script src="/mobile/mjs/amazeui.widgets.helper.js"></script>
+<script src="/mobile/mjs/app.js"></script>
+<script>
+//mrz
+if(!isExitsVariable('comefrom'))
+{
+  comefrom = '/';
+}
+else
+{
+  
+}
+
+//mrz
+if(!isExitsVariable('tobind'))
+{
+  tobind = '0';
+}
+
+function isExitsVariable(variableName) {
+    try {
+        if (eval(variableName) == "undefined") {
+            return false;
+        } else {
+            return true;
+        }
+    } catch(e) {
+    return false;
+  }
+    return false;
+}
+//mrz
+
+var ObjHead = {};
+ObjHead.header = {
+  "content": {
+    "left": [
+      {
+        "link": "#left-link",
+        "icon": "home",
+        "customIcon": "data:image/svg+xml;charset=utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 12 20\"><path d=\"M10,0l2,2l-8,8l8,8l-2,2L0,10L10,0z\" fill=\"%23fff\"/></svg>"
+      }
+    ],
+    "title": "抱筹网",
+    "right": [
+      {
+        "link": "#right-link","icon": "user"
+      }
+    ]
+  },
+  "theme": "default"
+  };
+  var data = {
+    login:{
+      "options": {
+        "cols": "2"
+      },
+      "content": [
+        {
+          "title": "登录",
+          "form":{
+            "formName":"login",
+            "formId":"loginForm",
+            "formAction":"/e/member/doaction.php",
+            "formMt":"POST",
+            "label":[
+            {
+                "labelFor":"username",
+                "labelText":"用户名",
+                "inputExcit":true,
+                "inputType":"text",
+                "inputId":"loginUsername",
+                "inputName":"username",
+                "inputPlaceholder":"手机号/用户名"
+              },
+              {
+                "labelFor":"password",
+                "labelText":"密码",
+                "inputExcit":true,
+                "inputType":"password",
+                "inputId":"loginPassword",
+                "inputName":"password",
+                "inputPlaceholder":"输入密码"
+              },
+              {
+                "inputExcit":true,
+                "inputDivWidth":"10",
+                "inputType":"submit",
+                "inputId":"",
+                "inputName":"Submit",
+                "inputValue":"登录",
+                "divClass":"am-u-sm-offset-1",
+                "inputClass":"am-btn am-btn-block am-btn-primary"
+              },
+              {
+                "btn":"忘记密码",
+                "btnHref":"javascript:;",
+                "inputDivWidth":"10",
+                "divClass":"am-u-sm-offset-1",
+                "btnClass":"am-btn am-btn-block am-btn-default"
+              },
+              {
+                "inputExcit":true,
+                "inputType":"hidden",
+                "inputId":"ecmsfrom",
+                "inputName":"ecmsfrom",
+                "inputValue":comefrom
+              },
+              {
+                "inputExcit":true,
+                "inputType":"hidden",
+                "inputId":"tobind",
+                "inputName":"tobind",
+                "inputValue":tobind
+              },
+              {
+                "inputExcit":true,
+                "inputType":"hidden",
+                "inputName":"enews",
+                "inputValue":"login"
+              }
+            ]
+          },
+          "active": 1
+        },
+        {
+          "title": "注册",
+          "form":{
+            "formName":"userinfoform",
+            "formId":"registerForm",
+            "formAction":"/e/member/doaction.php",
+            "formMt":"POST",
+            "enctype":"multipart/form-data",
+            "label":[
+              {
+                "labelFor":"username",
+                "labelText":"手机号",
+                "inputExcit":true,
+                "inputType":"text",
+                "inputId":"regUsername",
+                "inputName":"username",
+                "inputPlaceholder":"输入11位数字",
+                "pattern":"^1((3|5|8){1}\\d{1}|70)\\d{8}$"
+              },
+              {"labelFor":"password",
+                "labelText":"密码",
+                "inputExcit":true,
+                "inputType":"password",
+                "inputId":"regPassword",
+                "inputName":"password",
+                "inputPlaceholder":"6-12位字符"
+              },
+              {
+                "labelFor":"key",
+                "labelText":"图形验证",
+                "inputExcit":true,
+                "inputType":"text",
+                "inputId":"key",
+                "inputName":"key",
+                "inputPlaceholder":"输入图形验证码",
+                "divClass":"contain",
+                "inputClass":"am-u-sm-5",
+                "img":"/e/ShowKey/?v=reg",
+                "btn":"看不清楚？换一张",
+                "btnOnclick":"this.previousElementSibling.src='/e/ShowKey/?v=reg&t='+Math.random();",
+                "btnHref":"javascript:;",
+                "btnId":"confirmImg"
+              },
+              {
+                "labelFor":"yzm",
+                "labelText":"短信验证",
+                "inputExcit":true,
+                "inputType":"text",
+                "inputId":"confirmNum",
+                "inputName":"yzm",
+                "inputPlaceholder":"输入短信验证码",
+                "inputClass":"am-u-sm-5",
+                "btn":"获取短信验证码",
+                "btnId":"confirmNumBtn",
+                "btnHref":"javascript:;"
+              },
+              {
+                "inputExcit":true,
+                "inputDivWidth":"10",
+                "inputType":"submit",
+                "inputName":"Submit",
+                "inputValue":"注册",
+                "divClass":"am-u-sm-offset-1",
+                "inputClass":"am-btn am-btn-block am-btn-primary"
+              },
+              {
+                "inputExcit":true,
+                "inputType":"hidden",
+                "inputId":"ecmsfrom",
+                "inputName":"ecmsfrom",
+                "inputValue":comefrom
+              },
+              {
+                "inputExcit":true,
+                "inputType":"hidden",
+                "inputId":"groupid",
+                "inputName":"groupid",
+                "inputValue":"1"
+              },
+              {
+                "inputExcit":true,
+                "inputType":"hidden",
+                "inputId":"tobind",
+                "inputName":"tobind",
+                "inputValue":tobind
+              },
+              {
+                "inputExcit":true,
+                "inputType":"hidden",
+                "inputName":"enews",
+                "inputValue":"register"
+              }
+            ]
+          }
+        }
+      ],
+      "theme": "default"
+    }
+  };
+app.temInit("amz-head",ObjHead);
+app.temInit("amz-tpl",data);
+</script>
+<script>
+(function(){
+var general = {"keystat":false,"imgChange":false};
+  $('#registerForm').validator({
+      //图形认证
+    validate:function(validity){
+      if($(validity.field).is("#key")){
+        return $.ajax({
+          url:"/e/ShowKey/index.php?v=reg",
+          type:"POST",
+          data:{
+            xiaoyan:"key",
+            key:$("#key").val()
+          },
+          dataFilter:function(msg){
+            var jsonMsg = JSON.parse(msg);
+            if(jsonMsg.msg==="true"){
+              general.keystat = true;
+              validity.valid=true;
+            }else{
+              general.keystat = false;
+              validity.valid=false;
+            };
+          }
+        }).then(function(){
+          return validity
+        },function(){
+          return validity;
+        });
+      };
+  //短信验证
+      if($(validity.field).is("#confirmNum")){
+        return $.ajax({
+          url:"/e/ShowKey/index.php?v=reg",
+          type:"POST",
+          data:{
+            xiaoyan:"yzm",
+            yzm:$("#confirmNum").val()
+          },
+          success:function(msg){
+            var jsonMsg = JSON.parse(msg);
+            if(jsonMsg.msg==="true"){
+              validity.valid=true;
+            }else{
+              validity.valid=false;
+            };
+          }
+        }).then(function(data){
+          return validity;
+        },function(data){
+          return validity;
+        });
+      }
+    }
+  })
+
+//获取短信
+  function textPhoneNum(){
+    var phoneNum = $('#regUsername').val(),
+    key = $('#key').val(),
+    confirmNumBtn = $('#confirmNumBtn'),
+    preVal = confirmNumBtn.text(),
+    btnBind = function(){
+      $('#confirmNumBtn').one('click',function(){textPhoneNum()});
+    },
+    retry=function(msg) {
+        var num = 60,
+        val = setInterval(function(){
+          confirmNumBtn.text(--num +"秒后重发");
+          if(num<=0){
+            clearInterval(val);
+            confirmNumBtn.text(preVal);
+            btnBind();
+          }
+        },1000);
+      };
+    if(general.keystat){
+      retry();
+      general.keystat=false;
+      general.imgChange = true;
+      $.ajax({
+            type: "POST",
+            url:'/e/ShowKey/?v=reg&t='+Math.random(),
+            data:{username:phoneNum,key:key,xiaoyan:"check"},// 要提交的表单 
+            success:function(){},
+            error:function(){btnBind();}
+        });
+    }else{
+      if(general.imgChange){
+        general.imgChange = false;
+        $("#confirmImg").trigger("click");
+        btnBind();
+      }else{
+        btnBind();
+      }
+    }
+
+  }
+  $('#confirmNumBtn').one('click',function(){textPhoneNum()});
+//获取短信end
+})($)
+
+</script>
+</body>
+</html>
